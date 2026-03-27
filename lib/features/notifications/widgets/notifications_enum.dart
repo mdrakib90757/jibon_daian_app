@@ -1,0 +1,1 @@
+enum NotifType { urgent, success, reminder, system }
