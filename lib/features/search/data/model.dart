@@ -20,7 +20,8 @@ class DonorModel {
   final String area;
   final String city;
   final bool isAvailable;
-  final String lastDonated; // e.g. "Available Now" or "Last donated 3 months ago"
+  final String
+  lastDonated; // e.g. "Available Now" or "Last donated 3 months ago"
   final String? avatarUrl;
   final String? phone;
 

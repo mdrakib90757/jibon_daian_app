@@ -51,15 +51,18 @@ class DonorCard extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: AppColors.ripple3,
                         border: Border.all(
-                            color: AppColors.ripple1, width: 1.5),
+                          color: AppColors.ripple1,
+                          width: 1.5,
+                        ),
                       ),
                       child: ClipOval(
                         child: donor.avatarUrl != null
-                            ? Image.network(donor.avatarUrl!,
-                            fit: BoxFit.cover)
-                            : Icon(Icons.person,
-                            size: 32,
-                            color: AppColors.textSecondary),
+                            ? Image.network(donor.avatarUrl!, fit: BoxFit.cover)
+                            : Icon(
+                                Icons.person,
+                                size: 32,
+                                color: AppColors.textSecondary,
+                              ),
                       ),
                     ),
                     // Blood group badge
@@ -68,12 +71,16 @@ class DonorCard extends StatelessWidget {
                       right: -4,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 2),
+                          horizontal: 5,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              color: AppColors.textWhite, width: 1.5),
+                            color: AppColors.textWhite,
+                            width: 1.5,
+                          ),
                         ),
                         child: Text(
                           donor.bloodGroup,
@@ -96,21 +103,28 @@ class DonorCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Name
-                      Text(donor.name,
-                          style: AppTextStyles.hospitalName
-                              .copyWith(fontSize: 15)),
+                      Text(
+                        donor.name,
+                        style: AppTextStyles.hospitalName.copyWith(
+                          fontSize: 15,
+                        ),
+                      ),
 
                       const SizedBox(height: 4),
 
                       // Location
                       Row(
                         children: [
-                          const Icon(Icons.location_on_outlined,
-                              size: 13,
-                              color: AppColors.textSecondary),
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 13,
+                            color: AppColors.textSecondary,
+                          ),
                           const SizedBox(width: 2),
-                          Text(donor.location,
-                              style: AppTextStyles.hospitalSub),
+                          Text(
+                            donor.location,
+                            style: AppTextStyles.hospitalSub,
+                          ),
                         ],
                       ),
 

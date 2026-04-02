@@ -84,16 +84,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             shape: BoxShape.circle,
                             color: AppColors.ripple2,
                           ),
-                          child: const Icon(Icons.water_drop,
-                              color: AppColors.primary, size: 30),
+                          child: const Icon(
+                            Icons.water_drop,
+                            color: AppColors.primary,
+                            size: 30,
+                          ),
                         ),
                         const SizedBox(height: AppDimens.spaceMD),
-                        Text(AppStrings.joinTitle,
-                            style: AppTextStyles.authTitle),
+                        Text(
+                          AppStrings.joinTitle,
+                          style: AppTextStyles.authTitle,
+                        ),
                         const SizedBox(height: 6),
-                        Text(AppStrings.joinSubtitle,
-                            style: AppTextStyles.authSubtitle,
-                            textAlign: TextAlign.center),
+                        Text(
+                          AppStrings.joinSubtitle,
+                          style: AppTextStyles.authSubtitle,
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),
@@ -117,10 +124,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppStrings.emailAddressHint,
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    suffixIcon: const Icon(Icons.email_outlined,
-                        color: AppColors.inputIcon, size: 18),
-                    validator: (v) =>
-                        v!.isEmpty ? 'Please enter email' : null,
+                    suffixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: AppColors.inputIcon,
+                      size: 18,
+                    ),
+                    validator: (v) => v!.isEmpty ? 'Please enter email' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
@@ -140,8 +149,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: AppStrings.location,
                     hint: AppStrings.locationHint,
                     controller: _locationController,
-                    prefixIcon: const Icon(Icons.location_on_outlined,
-                        color: AppColors.primary, size: 18),
+                    prefixIcon: const Icon(
+                      Icons.location_on_outlined,
+                      color: AppColors.primary,
+                      size: 18,
+                    ),
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
@@ -162,19 +174,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return AppPrimaryButton(
                         label: AppStrings.register,
                         isLoading: state is AuthLoading,
-                        icon: const Icon(Icons.person_add_outlined,
-                            color: AppColors.textWhite, size: 18),
+                        icon: const Icon(
+                          Icons.person_add_outlined,
+                          color: AppColors.textWhite,
+                          size: 18,
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.read<AuthBloc>().add(
-                                  AuthRegisterSubmitted(
-                                    fullName: _nameController.text.trim(),
-                                    email: _emailController.text.trim(),
-                                    phone: _phoneController.text.trim(),
-                                    location: _locationController.text.trim(),
-                                    bloodGroup: _selectedBloodGroup,
-                                  ),
-                                );
+                              AuthRegisterSubmitted(
+                                fullName: _nameController.text.trim(),
+                                email: _emailController.text.trim(),
+                                phone: _phoneController.text.trim(),
+                                location: _locationController.text.trim(),
+                                bloodGroup: _selectedBloodGroup,
+                              ),
+                            );
                           }
                         },
                       );
@@ -188,13 +203,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(AppStrings.alreadyAccount,
-                            style: AppTextStyles.authLink),
+                        Text(
+                          AppStrings.alreadyAccount,
+                          style: AppTextStyles.authLink,
+                        ),
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () => Navigator.pop(context),
-                          child: Text(AppStrings.login,
-                              style: AppTextStyles.authLinkBold),
+                          child: Text(
+                            AppStrings.login,
+                            style: AppTextStyles.authLinkBold,
+                          ),
                         ),
                       ],
                     ),
@@ -210,8 +229,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: 120,
                       color: AppColors.mapOverlay,
                       child: const Center(
-                        child: Icon(Icons.map_outlined,
-                            color: AppColors.textSecondary, size: 40),
+                        child: Icon(
+                          Icons.map_outlined,
+                          color: AppColors.textSecondary,
+                          size: 40,
+                        ),
                       ),
                     ),
                   ),

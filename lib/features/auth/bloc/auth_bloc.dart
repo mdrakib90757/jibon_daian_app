@@ -17,7 +17,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   bool _isPasswordVisible = false;
 
   Future<void> _onLogin(
-      AuthLoginSubmitted event, Emitter<AuthState> emit) async {
+    AuthLoginSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
     await Future.delayed(const Duration(milliseconds: 1500));
     // TODO: Replace with real API call
@@ -29,7 +31,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onRegister(
-      AuthRegisterSubmitted event, Emitter<AuthState> emit) async {
+    AuthRegisterSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
     await Future.delayed(const Duration(milliseconds: 1500));
     // TODO: Replace with real API call
@@ -37,7 +41,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onForgotPassword(
-      AuthForgotPasswordSubmitted event, Emitter<AuthState> emit) async {
+    AuthForgotPasswordSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
     await Future.delayed(const Duration(milliseconds: 1500));
     // TODO: Replace with real API call
@@ -45,7 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onTogglePassword(
-      AuthPasswordVisibilityToggled event, Emitter<AuthState> emit) {
+    AuthPasswordVisibilityToggled event,
+    Emitter<AuthState> emit,
+  ) {
     _isPasswordVisible = !_isPasswordVisible;
     emit(AuthPasswordVisibilityChanged(isVisible: _isPasswordVisible));
   }

@@ -30,6 +30,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundWhite,
         elevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),

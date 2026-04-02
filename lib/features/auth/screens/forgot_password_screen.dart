@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_daian_app/core/constants/app_routes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_strings.dart';
@@ -157,7 +158,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           style: AppTextStyles.authLink,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            AppRoutes.contactSupport,
+                          ),
                           child: Text(
                             AppStrings.contactSupport,
                             style: AppTextStyles.authLinkBold,

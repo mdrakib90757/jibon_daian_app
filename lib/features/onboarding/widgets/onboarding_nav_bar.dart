@@ -46,7 +46,7 @@ class OnboardingNavBar extends StatelessWidget implements PreferredSizeWidget {
               )
             else
               const SizedBox(width: AppDimens.iconMD),
-      
+
             // Title - centered
             Expanded(
               child: Text(
@@ -57,7 +57,7 @@ class OnboardingNavBar extends StatelessWidget implements PreferredSizeWidget {
                     : AppTextStyles.navTitle,
               ),
             ),
-      
+
             // Skip button
             GestureDetector(
               onTap: onSkip,

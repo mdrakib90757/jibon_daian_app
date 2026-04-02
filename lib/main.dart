@@ -7,8 +7,14 @@ import 'package:jibon_daian_app/shared/navigation/app_bottom_nav_bar.dart';
 import 'core/constants/app_routes.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_router.dart';
+import 'features/blood_request/bloc/blood_request_bloc.dart';
+import 'features/blood_request/screens/blood_request_screen.dart';
+import 'features/donation_history/bloc/donation_history_bloc.dart';
+import 'features/donation_history/screens/donation_history_screen.dart';
 import 'features/home/bloc/home_bloc.dart';
 import 'features/search/bloc/search_bloc.dart';
+import 'features/user_profile/bloc/user_profile_bloc.dart';
+import 'features/user_profile/screens/user_profile_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +68,13 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  void _goHome() {
+    setState(() => _currentIndex = 0);
+  }
+
+  void _onTabTap(int index) {
+    setState(() => _currentIndex = index);
+  }
 
   final List<Widget> _screens = [
     const HomeDashboardScreen(), // Index 0: Home
@@ -86,17 +99,26 @@ class _MainScreenState extends State<MainScreen> {
           // Index 1: Search
           BlocProvider(
             create: (_) => SearchBloc(),
-            child: const SearchResultsScreen(),
+            child: SearchResultsScreen(onBackPressed: _goHome),
           ),
 
           // Index 2: FAB placeholder
-          const Center(child: Text('Add Request')),
+          BlocProvider(
+            create: (_) => BloodRequestBloc(),
+            child: BloodRequestScreen(onBackPressed: _goHome),
+          ),
 
           // Index 3: History placeholder
-          const Center(child: Text('History')),
+          BlocProvider(
+            create: (_) => DonationHistoryBloc(),
+            child: DonationHistoryScreen(onBackPressed: _goHome),
+          ),
 
           // Index 4: Profile placeholder
-          const Center(child: Text('Profile')),
+          BlocProvider(
+            create: (_) => UserProfileBloc(),
+            child: UserProfileScreen(onBackPressed: _goHome),
+          ),
         ],
       ),
       bottomNavigationBar: AppBottomNavBar(

@@ -3,11 +3,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
 
 class HomeSearchBar extends StatelessWidget {
-  const HomeSearchBar({
-    super.key,
-    required this.hint,
-    required this.onChanged,
-  });
+  const HomeSearchBar({super.key, required this.hint, required this.onChanged});
 
   final String hint;
   final void Function(String) onChanged;

@@ -37,7 +37,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   void _onProgressUpdated(
-      SplashProgressUpdated event, Emitter<SplashState> emit) {
+    SplashProgressUpdated event,
+    Emitter<SplashState> emit,
+  ) {
     emit(SplashLoading(event.progress.clamp(0.0, 1.0)));
   }
 

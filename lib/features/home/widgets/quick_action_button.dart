@@ -39,10 +39,13 @@ class QuickActionButton extends StatelessWidget {
             child: Icon(icon, color: AppColors.textWhite, size: 28),
           ),
           const SizedBox(height: 8),
-          Text(label, style: AppTextStyles.quickActionLabel.copyWith(
-            color: AppColors.textSecondary,
-            fontSize: 12,
-          )),
+          Text(
+            label,
+            style: AppTextStyles.quickActionLabel.copyWith(
+              color: AppColors.textSecondary,
+              fontSize: 12,
+            ),
+          ),
         ],
       ),
     );

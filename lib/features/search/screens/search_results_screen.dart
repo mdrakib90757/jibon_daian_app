@@ -12,7 +12,8 @@ import '../../../core/constants/app_text_styles.dart';
 import '../bloc/search_bloc.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({super.key});
+  final VoidCallback? onBackPressed;
+  const SearchResultsScreen({super.key, this.onBackPressed});
 
   @override
   State<SearchResultsScreen> createState() => _SearchResultsScreenState();
@@ -56,14 +57,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     );
   }
 
-  // ── AppBar ──────────────────────────────────────────────────────
   PreferredSizeWidget _buildAppBar(BuildContext context, SearchState state) {
     return AppBar(
       backgroundColor: AppColors.backgroundWhite,
       elevation: 0,
+      scrolledUnderElevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-        onPressed: () => Navigator.pop(context),
+        onPressed: widget.onBackPressed ?? () {},
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +87,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     );
   }
 
-  // ── Body ────────────────────────────────────────────────────────
   Widget _buildBody(BuildContext context, SearchState state) {
     if (state is SearchLoading) {
       return const Center(
@@ -98,7 +98,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Search input ──────────────────────────────────────
           Padding(
             padding: const EdgeInsets.fromLTRB(
               AppDimens.pagePaddingH,
@@ -115,7 +114,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
           const SizedBox(height: AppDimens.spaceMD),
 
-          // ── Filter chips row ──────────────────────────────────
           SizedBox(
             height: 36,
             child: ListView(
@@ -190,7 +188,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
           const SizedBox(height: AppDimens.spaceMD),
 
-          // ── Results count + sort ──────────────────────────────
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppDimens.pagePaddingH,
@@ -223,7 +220,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
           const SizedBox(height: AppDimens.spaceSM),
 
-          // ── Donor cards list ──────────────────────────────────
           Expanded(
             child: state.results.isEmpty
                 ? _buildEmptyState()
@@ -250,7 +246,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     return const SizedBox.shrink();
   }
 
-  // ── Empty state ─────────────────────────────────────────────────
   Widget _buildEmptyState() {
     return Center(
       child: Column(
@@ -271,7 +266,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     );
   }
 
-  // ── Sort bottom sheet ───────────────────────────────────────────
   void _showSortBottomSheet(BuildContext context, SearchState state) {
     final loaded = state is SearchLoaded ? state : null;
     showModalBottomSheet(
@@ -324,7 +318,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     );
   }
 
-  // ── Filter bottom sheet ─────────────────────────────────────────
   void _showFilterBottomSheet(BuildContext context, SearchLoaded state) {
     showModalBottomSheet(
       context: context,
@@ -412,7 +405,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     );
   }
 
-  // ── Helpers ─────────────────────────────────────────────────────
   String _sortLabel(SearchSort sort) {
     switch (sort) {
       case SearchSort.nearest:

@@ -23,9 +23,10 @@ class _SplashLogoState extends State<SplashLogo>
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
 
-    _scaleAnim = Tween<double>(begin: 0.95, end: 1.05).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _scaleAnim = Tween<double>(
+      begin: 0.95,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -70,9 +71,7 @@ class _SplashLogoState extends State<SplashLogo>
                 shape: BoxShape.circle,
                 color: AppColors.primary,
               ),
-              child: const Center(
-                child: _BloodDropIcon(),
-              ),
+              child: const Center(child: _BloodDropIcon()),
             ),
           ],
         ),

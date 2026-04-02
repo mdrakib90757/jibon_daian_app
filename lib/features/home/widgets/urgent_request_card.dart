@@ -60,8 +60,11 @@ class UrgentRequestCard extends StatelessWidget {
                 const SizedBox(height: 3),
                 Row(
                   children: [
-                    const Icon(Icons.location_on,
-                        color: AppColors.textSecondary, size: 12),
+                    const Icon(
+                      Icons.location_on,
+                      color: AppColors.textSecondary,
+                      size: 12,
+                    ),
                     const SizedBox(width: 2),
                     Text(location, style: AppTextStyles.hospitalSub),
                   ],
@@ -76,8 +79,10 @@ class UrgentRequestCard extends StatelessWidget {
             children: [
               if (isUrgent)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.ripple2,
                     borderRadius: BorderRadius.circular(20),

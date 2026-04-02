@@ -44,10 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Icon(Icons.menu, color: AppColors.textPrimary),
-                    const Icon(
-                      Icons.notifications,
-                      color: AppColors.primary,
-                    ),
+                    const Icon(Icons.notifications, color: AppColors.primary),
                   ],
                 ),
               ),
@@ -87,8 +84,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       child: BlocBuilder<SplashBloc, SplashState>(
                         builder: (context, state) {
-                          final progress =
-                              state is SplashLoading ? state.progress : 0.0;
+                          final progress = state is SplashLoading
+                              ? state.progress
+                              : 0.0;
                           return SplashProgressBar(
                             progress: progress,
                             label: AppStrings.splashLoading,
