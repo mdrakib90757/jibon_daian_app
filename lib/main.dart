@@ -72,17 +72,17 @@ class _MainScreenState extends State<MainScreen> {
     setState(() => _currentIndex = 0);
   }
 
-  void _onTabTap(int index) {
-    setState(() => _currentIndex = index);
-  }
-
-  final List<Widget> _screens = [
-    const HomeDashboardScreen(), // Index 0: Home
-    const SearchResultsScreen(), // Index 1: Search
-    const Center(child: Text("Add Request")), // Index 2: FAB (middle button)
-    const Center(child: Text("History")), // Index 3: History
-    const Center(child: Text("Profile")), // Index 4: Profile
-  ];
+  // void _onTabTap(int index) {
+  //   setState(() => _currentIndex = index);
+  // }
+  //
+  // final List<Widget> _screens = [
+  //   const HomeDashboardScreen(), // Index 0: Home
+  //   const SearchResultsScreen(), // Index 1: Search
+  //   const Center(child: Text("Add Request")), // Index 2: FAB (middle button)
+  //   const Center(child: Text("History")), // Index 3: History
+  //   const Center(child: Text("Profile")), // Index 4: Profile
+  // ];
 
   @override
   Widget build(BuildContext context) {
