@@ -10,6 +10,8 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../shared/widgets/widgets.dart';
+import '../../eligibility/bloc/eligibility_bloc.dart';
+import '../../eligibility/screens/eligibility_check_screen.dart';
 import '../bloc/donate_blood_bloc.dart';
 
 class DonateBloodScreen extends StatefulWidget {
@@ -170,8 +172,15 @@ class _DonateBloodContent extends StatelessWidget {
               color: AppColors.textWhite,
               size: 20,
             ),
-            onPressed: () => context.read<DonateBloodBloc>().add(
-              const DonateBloodRegisterTapped(),
+            // Register to Donate button onPressed এ
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => EligibilityBloc(),
+                  child: const EligibilityCheckScreen(),
+                ),
+              ),
             ),
           ),
 
