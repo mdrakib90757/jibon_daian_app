@@ -157,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: Icon(
                         _isPasswordVisible
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: AppColors.inputIcon,
                         size: 18,
                       ),

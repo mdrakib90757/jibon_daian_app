@@ -1,5 +1,5 @@
 class RegisterRequest {
-  final String name;
+  final String loginName;
   final String contactNumber;
   final String email;
   final String password;
@@ -10,7 +10,7 @@ class RegisterRequest {
   final RegisterProps props;
 
   RegisterRequest({
-    required this.name,
+    required this.loginName,
     required this.contactNumber,
     required this.email,
     required this.password,
@@ -22,7 +22,7 @@ class RegisterRequest {
   });
 
   Map<String, dynamic> toJson() => {
-    "name": name,
+    "name": loginName,
     "contactNumber": contactNumber,
     "email": email,
     "password": password,

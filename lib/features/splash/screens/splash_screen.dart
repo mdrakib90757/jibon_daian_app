@@ -28,6 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is SplashNavigateToOnboarding) {
           Navigator.pushReplacementNamed(context, AppRoutes.onboarding);
+        } else if (state is SplashNavigateToMain) {
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
+        } else if (state is SplashNavigateToLogin) {
+          Navigator.pushReplacementNamed(context, AppRoutes.login);
         }
       },
       child: Scaffold(
@@ -35,7 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
         body: SafeArea(
           child: Stack(
             children: [
-              // ── Top Bar ─────────────────────────────────────
               Positioned(
                 top: AppDimens.spaceMD,
                 left: AppDimens.pagePaddingH,
@@ -43,13 +46,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.menu, color: AppColors.textPrimary),
-                    const Icon(Icons.notifications, color: AppColors.primary),
+                    // const Icon(Icons.menu, color: AppColors.textPrimary),
+                    // const Icon(Icons.notifications, color: AppColors.primary),
                   ],
                 ),
               ),
 
-              // ── Main Content ─────────────────────────────────
               Column(
                 children: [
                   // Logo area - takes most of the screen

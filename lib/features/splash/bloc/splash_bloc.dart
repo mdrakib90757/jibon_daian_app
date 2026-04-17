@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 
 part 'splash_event.dart';
 part 'splash_state.dart';
 
 /// SplashBloc - Manages the splash screen loading animation and navigation
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
+  final TokenRepository _tokenRepo = TokenRepository();
+
   SplashBloc() : super(const SplashInitial()) {
     on<SplashStarted>(_onSplashStarted);
     on<SplashProgressUpdated>(_onProgressUpdated);
@@ -43,8 +46,20 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     emit(SplashLoading(event.progress.clamp(0.0, 1.0)));
   }
 
-  void _onSplashCompleted(SplashCompleted event, Emitter<SplashState> emit) {
-    emit(const SplashNavigateToOnboarding());
+  Future<void> _onSplashCompleted(
+    SplashCompleted event,
+    Emitter<SplashState> emit,
+  ) async {
+    final isFirstTime = await _tokenRepo.isFirstTime();
+    final token = await _tokenRepo.getToken();
+
+    if (isFirstTime) {
+      emit(const SplashNavigateToOnboarding());
+    } else if (token != null && token.isNotEmpty) {
+      emit(const SplashNavigateToMain());
+    } else {
+      emit(const SplashNavigateToLogin());
+    }
   }
 
   @override

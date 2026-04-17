@@ -31,7 +31,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return BlocListener<UserProfileBloc, UserProfileState>(
       listener: (context, state) {
         if (state is UserProfileNavigateLogin) {
-          Navigator.pushReplacementNamed(context, AppRoutes.login);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.login,
+            (route) => false,
+          );
         }
         if (state is UserProfileNavigateEdit) {
           ScaffoldMessenger.of(context).showSnackBar(

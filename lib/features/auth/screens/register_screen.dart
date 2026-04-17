@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:jibon_Bachan_app/core/utils/app_date_time.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_event.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
@@ -38,12 +39,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   int? _selectedDistrictId;
   int? _selectedAreaId;
   String? _selectedGender;
+  double _lat = 23.8103;
+  double _long = 89.5103;
+  bool _isPasswordVisible = false;
 
   /// Handles the registration logic when the user submits the form
   void _handleRegister() {
     if (_formKey.currentState!.validate()) {
+      if (_selectedBloodGroup.isEmpty) {
+        AppSnackbar.show(
+          context,
+          message: "Please select your blood group",
+          isError: true,
+        );
+        return;
+      }
+
       final myRequestData = RegisterRequest(
-        name: _nameController.text.trim(),
+        loginName: _nameController.text.trim(),
         contactNumber: _phoneController.text.trim(),
         email: _emailController.text.trim(),
         password: _passwordController.text,
@@ -56,13 +69,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
           birthDate: _birthDateController.text,
           gender: _selectedGender ?? "Male",
           bloodGroup: _selectedBloodGroup,
-          geolocation: Geolocation(latitude: 23.8103, longitude: 89.5103),
+          geolocation: Geolocation(latitude: _lat, longitude: _long),
         ),
       );
 
       context.read<AuthBloc>().add(
         AuthRegisterSubmitted(requestData: myRequestData),
       );
+    }
+  }
+
+  Future<void> _pickLocationFromMap() async {
+    final Map<String, dynamic>? result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            FullMapScreen(initialLocation: LatLng(_lat, _long)),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        _lat = (result['location'] as LatLng).latitude;
+        _long = (result['location'] as LatLng).longitude;
+        _locationController.text = result['address'];
+      });
     }
   }
 
@@ -211,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.emailAddress,
                     suffixIcon: const Icon(
                       Icons.email_outlined,
-                      color: AppColors.inputIcon,
+                      color: AppColors.primary,
                       size: 18,
                     ),
                     validator: (v) => v!.isEmpty ? 'Please enter email' : null,
@@ -225,49 +256,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppStrings.phoneHint,
                     controller: _phoneController,
                     keyboardType: TextInputType.phone,
+                    validator: (v) =>
+                        v!.isEmpty ? 'Please enter your phone number' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
 
                   // Location
-                  AppInputField(
-                    label: AppStrings.location,
-                    hint: AppStrings.locationHint,
-                    controller: _locationController,
-                    prefixIcon: const Icon(
-                      Icons.location_on_outlined,
-                      color: AppColors.primary,
-                      size: 18,
+                  GestureDetector(
+                    onTap: _pickLocationFromMap,
+                    child: AbsorbPointer(
+                      child: AppInputField(
+                        label: AppStrings.location,
+                        hint: AppStrings.locationHint,
+                        controller: _locationController,
+                        suffixIcon: const Icon(
+                          Icons.location_on_outlined,
+                          color: AppColors.primary,
+                          size: 18,
+                        ),
+                        validator: (v) => (v == null || v.isEmpty)
+                            ? 'Please enter your city/location'
+                            : null,
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
 
+                  Text("Division", style: AppTextStyles.inputLabel),
+                  const SizedBox(height: 8),
                   // Division & District Dropdowns
-                  AppDropdownField<int>(
-                    label: "Division",
-                    hint: "Select Division",
+                  CustomDropdown<int>(
+                    items: const [1, 2],
                     value: _selectedDivisionId,
-                    items: const [
-                      DropdownMenuItem(value: 1, child: Text("Dhaka")),
-                      DropdownMenuItem(value: 2, child: Text("Chittagong")),
-                    ],
-                    onChanged: (val) =>
-                        setState(() => _selectedDivisionId = val),
+                    hinText: "Select Division",
+                    popupHeight: 150,
+                    itemAsString: (item) {
+                      if (item == 1) return "Dhaka";
+                      if (item == 2) return "Chittagong";
+                      return "";
+                    },
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedDivisionId = val;
+                      });
+                    },
+                    validator: (v) =>
+                        v == null ? 'Please select division' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
 
-                  // District dropdown (should ideally be dynamic based on selected division)
-                  AppDropdownField<int>(
-                    label: "District",
-                    hint: "Select District",
+                  Text("District", style: AppTextStyles.inputLabel),
+                  const SizedBox(height: 8),
+
+                  CustomDropdown<int>(
+                    items: const [1],
                     value: _selectedDistrictId,
-                    items: const [
-                      DropdownMenuItem(value: 1, child: Text("Joypurhat")),
-                    ],
-                    onChanged: (val) =>
-                        setState(() => _selectedDistrictId = val),
+                    hinText: "Select District",
+                    itemAsString: (item) {
+                      if (item == 1) return "Joypurhat";
+                      return "";
+                    },
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedDistrictId = val;
+                      });
+                    },
+                    validator: (v) =>
+                        v == null ? 'Please select district' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
@@ -297,22 +355,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           onPressed: () {},
                         ),
+                        validator: (v) =>
+                            v!.isEmpty ? 'Please set date of birth' : null,
                       ),
                     ),
                   ),
                   const SizedBox(height: AppDimens.spaceMD),
 
                   // Gender
-                  AppDropdownField<String>(
-                    label: "Gender",
-                    hint: "Select Gender",
+                  Text("Gender", style: AppTextStyles.inputLabel),
+                  const SizedBox(height: 8),
+
+                  CustomDropdown<String>(
+                    items: const ["Male", "Female", "Other"],
                     value: _selectedGender,
-                    items: const [
-                      DropdownMenuItem(value: "Male", child: Text("Male")),
-                      DropdownMenuItem(value: "Female", child: Text("Female")),
-                      DropdownMenuItem(value: "Other", child: Text("Other")),
-                    ],
-                    onChanged: (val) => setState(() => _selectedGender = val),
+                    hinText: "Select Gender",
+                    popupHeight: 130,
+                    itemAsString: (item) => item,
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedGender = val;
+                      });
+                    },
+                    validator: (v) => v == null ? 'Please select gender' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceMD),
@@ -323,11 +388,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppStrings.passwordHint,
                     controller: _passwordController,
                     keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    suffixIcon: const Icon(
-                      Icons.lock_outline,
-                      color: AppColors.inputIcon,
-                      size: 18,
+
+                    obscureText: !_isPasswordVisible,
+                    // suffixIcon: const Icon(
+                    //   Icons.lock_outline,
+                    //   color: AppColors.inputIcon,
+                    //   size: 18,
+                    // ),
+                    suffixIcon: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        }),
+                      },
+                      child: Icon(
+                        _isPasswordVisible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: AppColors.inputIcon,
+                        size: 18,
+                      ),
                     ),
                     validator: (v) =>
                         v!.length < 6 ? 'Password too short' : null,
@@ -433,7 +513,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 children: [
                                   TileLayer(
                                     urlTemplate:
-                                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
                                     subdomains: const ['a', 'b', 'c', 'd'],
                                   ),
                                 ],
@@ -444,24 +524,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           // Dark Overlay with Text
                           Container(
                             width: double.infinity,
-                            height: 120,
+                            height: 150,
                             color: AppColors.mapOverlay.withOpacity(
                               0.6,
                             ), // Matched color with opacity
-                            child: const Center(
+                            child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.map_outlined,
-                                    color: AppColors.textWhite,
+                                    color: AppColors.primary.withOpacity(0.5),
                                     size: 30,
                                   ),
-                                  SizedBox(height: 4),
+                                  const SizedBox(height: 4),
                                   Text(
                                     "Tap to expand map",
                                     style: TextStyle(
-                                      color: AppColors.textWhite,
+                                      color: AppColors.primary.withOpacity(0.5),
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                     ),

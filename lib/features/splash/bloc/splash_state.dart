@@ -25,3 +25,12 @@ class SplashLoading extends SplashState {
 class SplashNavigateToOnboarding extends SplashState {
   const SplashNavigateToOnboarding();
 }
+
+
+class SplashNavigateToMain extends SplashState {
+  const SplashNavigateToMain();
+}
+
+class SplashNavigateToLogin extends SplashState {
+  const SplashNavigateToLogin();
+}

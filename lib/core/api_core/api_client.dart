@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_exception.dart';
@@ -13,7 +14,7 @@ import 'exception_handler.dart';
 
 class ApiClient {
   final Duration timeout = Duration(seconds: 55);
-  final String _baseUrl = 'serialno-api.somee.com';
+  final String _baseUrl = 'blood-bank-api-rosy.vercel.app';
 
   static Future<Map<String, String>> _getHeaders() async {
     Map<String, String> headers = {};
@@ -49,7 +50,7 @@ class ApiClient {
     );
   }
 
-  dynamic _returnResponse(http.Response response) {
+  dynamic _returnResponse(http.Response response) async {
     debugPrint('${response.request!.url.toString()} ${response.statusCode}');
     log(response.body.toString());
     switch (response.statusCode) {
@@ -63,6 +64,7 @@ class ApiClient {
         var responseJson = convert.jsonDecode(response.body.toString());
         throw BadRequestException(responseJson["errorMessage"]);
       case 401:
+        await TokenRepository().clearToken();
         throw UnauthorisedException(response.body.toString());
       case 403:
         throw ForbiddenException(response.body.toString());

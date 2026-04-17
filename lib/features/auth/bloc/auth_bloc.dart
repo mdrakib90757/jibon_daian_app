@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import 'package:jibon_Bachan_app/features/auth/data/repository/auth_api.dart';
 
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-
   final AuthRepository _repository = AuthRepository();
   bool _isPasswordVisible = false;
 
@@ -19,7 +19,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthResetStatus>(_onReset);
   }
 
-
   Future<void> _onLogin(
     AuthLoginSubmitted event,
     Emitter<AuthState> emit,
@@ -28,6 +27,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final response = await _repository.login(event.email, event.password);
       if (response['success'] == true) {
+        final token = response['token'];
+        await TokenRepository().saveToken(token);
+        final savedToken = await TokenRepository().getToken();
+        print("---------- SAVED TOKEN: $savedToken ----------");
         emit(const AuthLoginSuccess());
       } else {
         emit(AuthFailure(message: response['message'] ?? "Login Failed"));
@@ -37,15 +40,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _onRegister(AuthRegisterSubmitted event, Emitter<AuthState> emit) async {
+  Future<void> _onRegister(
+    AuthRegisterSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
     try {
-
       final response = await _repository.register(event.requestData);
       if (response['success'] == true) {
         emit(const AuthRegisterSuccess());
       } else {
-        emit(AuthFailure(message: response['message'] ?? "Registration Failed"));
+        emit(
+          AuthFailure(message: response['message'] ?? "Registration Failed"),
+        );
       }
     } catch (e) {
       emit(AuthFailure(message: e.toString()));

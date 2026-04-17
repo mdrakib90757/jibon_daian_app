@@ -70,7 +70,7 @@ class AppStrings {
   static const String loginSubtitle =
       'Save lives by sharing yours. Log in to continue.';
   static const String email = 'Email';
-  static const String emailHint = 'yourname@email.com';
+  static const String emailHint = 'Please enter your email address';
   static const String password = 'Password';
   static const String passwordHint = '••••••••';
   static const String forgotPassword = 'Forgot Password?';
@@ -88,9 +88,9 @@ class AppStrings {
   static const String fullName = 'Full Name';
   static const String fullNameHint = 'Enter your full name';
   static const String emailAddress = 'Email Address';
-  static const String emailAddressHint = 'example@mail.com';
+  static const String emailAddressHint = 'Enter your email address';
   static const String phoneNumber = 'Phone Number';
-  static const String phoneHint = '+1 (000) 000-0000';
+  static const String phoneHint = 'Enter your phone number';
   static const String location = 'Location';
   static const String locationHint = 'Select your city';
   static const String bloodGroup = 'Blood Group';

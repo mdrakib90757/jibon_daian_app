@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_routes.dart';
@@ -59,8 +60,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _navigateToLogin() {
-    Navigator.pushReplacementNamed(context, AppRoutes.login);
+  void _navigateToLogin() async {
+    await TokenRepository().setOnboardingComplete();
+
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
+    }
   }
 
   @override

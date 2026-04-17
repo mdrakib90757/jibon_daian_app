@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import 'package:jibon_Bachan_app/features/user_profile/bloc/user_profile_event.dart';
 import 'package:jibon_Bachan_app/features/user_profile/bloc/user_profile_state.dart';
 import '../data/model/user_profile_model.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
+  final TokenRepository _repository = TokenRepository();
+
   UserProfileBloc() : super(const UserProfileInitial()) {
     on<UserProfileLoaded>(_onLoaded);
     on<UserProfileEditTapped>(_onEditTapped);
@@ -37,8 +40,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     UserProfileLogoutTapped event,
     Emitter<UserProfileState> emit,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    emit(const UserProfileNavigateLogin());
+    try {
+      await _repository.clearToken();
+
+      emit(const UserProfileNavigateLogin());
+    } catch (e) {}
   }
 
   void _onChangePassword(
