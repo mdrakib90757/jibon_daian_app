@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/blood_request/bloc/blood_request_event.dart';
-import 'package:jibon_daian_app/features/blood_request/bloc/blood_request_state.dart';
+import 'package:jibon_Bachan_app/core/utils/app_date_time.dart';
+import 'package:jibon_Bachan_app/features/blood_request/bloc/blood_request_event.dart';
+import 'package:jibon_Bachan_app/features/blood_request/bloc/blood_request_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -22,6 +23,7 @@ class _BloodRequestScreenState extends State<BloodRequestScreen> {
   final _locationController = TextEditingController();
   final _contactController = TextEditingController();
   final _additionalController = TextEditingController();
+  final _selectDateController = TextEditingController();
 
   static const List<String> _bloodGroups = [
     'A+',
@@ -41,34 +43,8 @@ class _BloodRequestScreenState extends State<BloodRequestScreen> {
     _locationController.dispose();
     _contactController.dispose();
     _additionalController.dispose();
+    _selectDateController.dispose();
     super.dispose();
-  }
-
-  Future<void> _pickDate(BuildContext context) async {
-    final picked = await showDatePicker(
-
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            useMaterial3: false,
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              onPrimary: AppColors.textWhite,
-              surface: AppColors.cardBackground,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (picked != null && context.mounted) {
-      final formatted = '${picked.day}/${picked.month}/${picked.year}';
-      context.read<BloodRequestBloc>().add(BloodRequestDateSelected(formatted));
-    }
   }
 
   @override
@@ -191,7 +167,14 @@ class _BloodRequestScreenState extends State<BloodRequestScreen> {
                     _SectionLabel(label: 'WHEN IS IT NEEDED?'),
                     const SizedBox(height: AppDimens.spaceXS),
                     GestureDetector(
-                      onTap: () => _pickDate(context),
+                      onTap: () async {
+                        String? date = await AppUtils.pickDate(context);
+                        if (date != null) {
+                          setState(() {
+                            _selectDateController.text = date;
+                          });
+                        }
+                      },
                       child: Container(
                         width: double.infinity,
                         height: 50,

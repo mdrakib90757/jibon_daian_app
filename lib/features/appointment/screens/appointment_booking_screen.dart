@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/appointment/bloc/appointment_state.dart';
+import 'package:jibon_Bachan_app/core/utils/app_date_time.dart';
+import 'package:jibon_Bachan_app/features/appointment/bloc/appointment_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -18,31 +19,19 @@ class AppointmentBookingScreen extends StatefulWidget {
 }
 
 class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
+  final _selectDateController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     context.read<AppointmentBloc>().add(const AppointmentLoaded());
   }
 
-  Future<void> _pickDate(BuildContext context) async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now().add(const Duration(days: 1)),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 60)),
-      builder: (context, child) => Theme(
-        data: Theme.of(context).copyWith(
-          colorScheme: const ColorScheme.light(
-            primary: AppColors.primary,
-            onPrimary: AppColors.textWhite,
-          ),
-        ),
-        child: child!,
-      ),
-    );
-    if (picked != null && context.mounted) {
-      context.read<AppointmentBloc>().add(AppointmentDateSelected(picked));
-    }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _selectDateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,7 +78,14 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             if (state is AppointmentFormState) {
               return _AppointmentForm(
                 state: state,
-                onPickDate: () => _pickDate(context),
+                onPickDate: () async {
+                  String? date = await AppUtils.pickDate(context);
+                  if (date != null) {
+                    setState(() {
+                      _selectDateController.text = date;
+                    });
+                  }
+                },
               );
             }
             return const SizedBox.shrink();

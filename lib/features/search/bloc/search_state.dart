@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/search/data/model.dart';
+import 'package:jibon_Bachan_app/features/search/data/model.dart';
 
 enum SearchSort { nearest, latest, available }
 

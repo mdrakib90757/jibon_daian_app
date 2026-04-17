@@ -1,10 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/features/auth/data/repository/auth_api.dart';
 
-part 'auth_event.dart';
-part 'auth_state.dart';
+import 'auth_event.dart';
+import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+
+  final AuthRepository _repository = AuthRepository();
+  bool _isPasswordVisible = false;
+
   AuthBloc() : super(const AuthInitial()) {
     on<AuthLoginSubmitted>(_onLogin);
     on<AuthRegisterSubmitted>(_onRegister);
@@ -14,30 +19,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthResetStatus>(_onReset);
   }
 
-  bool _isPasswordVisible = false;
 
   Future<void> _onLogin(
     AuthLoginSubmitted event,
     Emitter<AuthState> emit,
   ) async {
     emit(const AuthLoading());
-    await Future.delayed(const Duration(milliseconds: 1500));
-    // TODO: Replace with real API call
-    if (event.email.isNotEmpty && event.password.isNotEmpty) {
-      emit(const AuthLoginSuccess());
-    } else {
-      emit(const AuthFailure(message: 'Invalid email or password.'));
+    try {
+      final response = await _repository.login(event.email, event.password);
+      if (response['success'] == true) {
+        emit(const AuthLoginSuccess());
+      } else {
+        emit(AuthFailure(message: response['message'] ?? "Login Failed"));
+      }
+    } catch (e) {
+      emit(AuthFailure(message: e.toString()));
     }
   }
 
-  Future<void> _onRegister(
-    AuthRegisterSubmitted event,
-    Emitter<AuthState> emit,
-  ) async {
+  Future<void> _onRegister(AuthRegisterSubmitted event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
-    await Future.delayed(const Duration(milliseconds: 1500));
-    // TODO: Replace with real API call
-    emit(const AuthRegisterSuccess());
+    try {
+
+      final response = await _repository.register(event.requestData);
+      if (response['success'] == true) {
+        emit(const AuthRegisterSuccess());
+      } else {
+        emit(AuthFailure(message: response['message'] ?? "Registration Failed"));
+      }
+    } catch (e) {
+      emit(AuthFailure(message: e.toString()));
+    }
   }
 
   Future<void> _onForgotPassword(

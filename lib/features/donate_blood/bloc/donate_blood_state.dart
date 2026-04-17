@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/donate_blood/data/model/donate_blood_model.dart';
+import 'package:jibon_Bachan_app/features/donate_blood/data/model/donate_blood_model.dart';
 
 abstract class DonateBloodState extends Equatable {
   const DonateBloodState();

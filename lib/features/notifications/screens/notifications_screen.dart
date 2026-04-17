@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/notifications/bloc/notifications_event.dart';
-import 'package:jibon_daian_app/features/notifications/bloc/notifications_state.dart';
+import 'package:jibon_Bachan_app/features/notifications/bloc/notifications_event.dart';
+import 'package:jibon_Bachan_app/features/notifications/bloc/notifications_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_strings.dart';

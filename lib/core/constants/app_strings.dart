@@ -1,9 +1,9 @@
-// /// AppStrings - Centralized text management for Jibon Daian app
+// /// AppStrings - Centralized text management for Jibon Bachan app
 // class AppStrings {
 //   AppStrings._();
 //
 //   // app info
-//   static const String appName = 'Jibon Daian';
+//   static const String appName = 'Jibon Bachan';
 //   static const String appTagline = 'SAVE A LIFE, GIVE BLOOD';
 //   static const String appNetwork = 'Part of the Global Health Network';
 //
@@ -33,12 +33,12 @@
 //   static const String errorGeneric = 'Something went wrong. Please try again.';
 //   static const String noInternet = 'No internet connection.';
 // }
-/// AppStrings - Centralized text management for Jibon Daian app
+/// AppStrings - Centralized text management for Jibon Bachan app
 class AppStrings {
   AppStrings._();
 
   // App Info
-  static const String appName = 'Jibon Daian';
+  static const String appName = 'Jibon Bachan';
   static const String appTagline = 'SAVE A LIFE, GIVE BLOOD';
   static const String appNetwork = 'Part of the Global Health Network';
 
@@ -83,7 +83,7 @@ class AppStrings {
 
   // ── Auth - Register ───────────────────────────────────────────
   static const String createAccount = 'Create Account';
-  static const String joinTitle = 'Join Jibon Daian';
+  static const String joinTitle = 'Join Jibon Bachan';
   static const String joinSubtitle = 'Be a hero, save lives by donating blood.';
   static const String fullName = 'Full Name';
   static const String fullNameHint = 'Enter your full name';

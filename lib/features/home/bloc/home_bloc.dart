@@ -14,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _onLoaded(HomeLoaded event, Emitter<HomeState> emit) async {
     emit(const HomeLoading());
     await Future.delayed(const Duration(milliseconds: 500));
-    emit(const HomeDashState(userName: 'Jibon Daian', activeTab: 0));
+    emit(const HomeDashState(userName: 'Jibon Bachan', activeTab: 0));
   }
 
   void _onTabChanged(HomeTabChanged event, Emitter<HomeState> emit) {

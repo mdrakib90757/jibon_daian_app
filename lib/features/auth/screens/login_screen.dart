@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jibon_Bachan_app/features/auth/bloc/auth_event.dart';
+import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_routes.dart';
@@ -27,6 +29,17 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _handleLogin() {
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthBloc>().add(
+        AuthLoginSubmitted(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        ),
+      );
+    }
   }
 
   @override
@@ -80,31 +93,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: AppDimens.spaceMD),
 
-                  // ── App Name ──────────────────────────────────
+                  // App Name
                   Text(AppStrings.appName, style: AppTextStyles.authRedTitle),
 
                   const SizedBox(height: AppDimens.spaceXXL),
 
-                  // ── Heart illustration placeholder ────────────
-                  Container(
-                    width: double.infinity,
-                    height: 140,
-                    decoration: BoxDecoration(
-                      color: AppColors.ripple3,
-                      borderRadius: BorderRadius.circular(AppDimens.radiusLG),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.favorite,
-                        color: AppColors.primary,
-                        size: 80,
-                      ),
-                    ),
-                  ),
-
+                  // Heart illustration placeholder
+                  // Container(
+                  //   width: double.infinity,
+                  //   height: 140,
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.ripple3,
+                  //     borderRadius: BorderRadius.circular(AppDimens.radiusLG),
+                  //   ),
+                  //   child: const Center(
+                  //     child: Icon(
+                  //       Icons.favorite,
+                  //       color: AppColors.primary,
+                  //       size: 80,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: AppDimens.spaceLG),
 
-                  // ── Title ─────────────────────────────────────
+                  // Title
                   Text(AppStrings.welcomeBack, style: AppTextStyles.authTitle),
                   const SizedBox(height: 6),
                   Text(

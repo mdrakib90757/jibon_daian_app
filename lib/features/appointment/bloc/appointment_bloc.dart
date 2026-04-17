@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../donate_blood/data/model/donate_blood_model.dart';
@@ -77,7 +76,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         centerName: current.selectedCenterName ?? '',
         date: dateStr,
         time: current.selectedTime ?? '',
-        qrCode: 'JIBON-DAIAN-APT-${DateTime.now().millisecondsSinceEpoch}',
+        qrCode: 'JIBON-Bachan-APT-${DateTime.now().millisecondsSinceEpoch}',
       ),
     );
   }

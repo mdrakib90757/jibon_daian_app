@@ -1,6 +1,8 @@
-import 'package:equatable/equatable.dart';
+
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../data/model/donate_blood_model.dart';
+import 'package:jibon_Bachan_app/features/donate_blood/data/model/donate_blood_model.dart';
+
 import 'donate_blood_event.dart';
 import 'donate_blood_state.dart';
 

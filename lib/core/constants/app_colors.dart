@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// AppColors - Centralized color palette for Jibon Daian app
+/// AppColors - Centralized color palette for Jibon Bachan app
 class AppColors {
   AppColors._();
 

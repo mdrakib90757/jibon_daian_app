@@ -1,4 +1,5 @@
-import 'package:jibon_daian_app/features/notifications/widgets/notifications_enum.dart';
+
+import 'package:jibon_Bachan_app/features/notifications/widgets/notifications_enum.dart';
 
 class NotificationItem {
   const NotificationItem({

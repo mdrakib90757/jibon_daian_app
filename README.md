@@ -1,4 +1,5 @@
-# Jibon Daian 🩸
+# Jibon Bachan 🩸
+
 > **Save a Life, Give Blood** — Blood Donation App
 
 A Flutter application built with **BLoC state management**, feature-first architecture, and clean separation of concerns.
@@ -68,33 +69,35 @@ lib/
 
 ## 🏗️ Architecture
 
-| Layer | Responsibility |
-|---|---|
-| `core/constants` | Global design tokens: colors, strings, dims, text styles |
-| `core/theme` | MaterialApp theme wiring |
-| `core/utils` | Router with BLoC provider injection |
-| `shared/widgets` | Reusable widgets used across multiple features |
-| `features/*/bloc` | BLoC: events, states, business logic |
-| `features/*/models` | Data models for the feature |
-| `features/*/widgets` | Feature-specific UI widgets |
-| `features/*/screens` | Full screen composing widgets + BLoC consumers |
+| Layer                | Responsibility                                           |
+| -------------------- | -------------------------------------------------------- |
+| `core/constants`     | Global design tokens: colors, strings, dims, text styles |
+| `core/theme`         | MaterialApp theme wiring                                 |
+| `core/utils`         | Router with BLoC provider injection                      |
+| `shared/widgets`     | Reusable widgets used across multiple features           |
+| `features/*/bloc`    | BLoC: events, states, business logic                     |
+| `features/*/models`  | Data models for the feature                              |
+| `features/*/widgets` | Feature-specific UI widgets                              |
+| `features/*/screens` | Full screen composing widgets + BLoC consumers           |
 
 ---
 
 ## 🎨 Design Tokens
 
 ### Colors (`app_colors.dart`)
-| Token | Hex | Usage |
-|---|---|---|
-| `primary` | `#D94040` | Buttons, icons, progress, active dots |
-| `primaryLight` | `#E87070` | Disabled state |
-| `background` | `#F5F2EF` | Splash background |
-| `backgroundWhite` | `#F8F8F8` | Onboarding background |
-| `textPrimary` | `#1A1F36` | Headings |
-| `textSecondary` | `#6B7280` | Descriptions, captions |
-| `ripple1/2/3` | Various pinks | Splash logo concentric rings |
+
+| Token             | Hex           | Usage                                 |
+| ----------------- | ------------- | ------------------------------------- |
+| `primary`         | `#D94040`     | Buttons, icons, progress, active dots |
+| `primaryLight`    | `#E87070`     | Disabled state                        |
+| `background`      | `#F5F2EF`     | Splash background                     |
+| `backgroundWhite` | `#F8F8F8`     | Onboarding background                 |
+| `textPrimary`     | `#1A1F36`     | Headings                              |
+| `textSecondary`   | `#6B7280`     | Descriptions, captions                |
+| `ripple1/2/3`     | Various pinks | Splash logo concentric rings          |
 
 ### Text Styles (`app_text_styles.dart`)
+
 - `appName` — Brand name, 36px, ExtraBold
 - `appTagline` — Uppercase tagline, 13px, letter-spaced
 - `onboardingTitle` — Slide titles, 26px, ExtraBold
@@ -107,6 +110,7 @@ lib/
 ## 🧱 BLoC State Machines
 
 ### SplashBloc
+
 ```
 SplashInitial
   └─ SplashStarted ──► SplashLoading(0.0 → 1.0)
@@ -114,6 +118,7 @@ SplashInitial
 ```
 
 ### OnboardingBloc
+
 ```
 OnboardingInitial
   └─ init ──► OnboardingPageState(page: 0)
@@ -129,9 +134,9 @@ OnboardingInitial
 ## 📦 Dependencies
 
 ```yaml
-flutter_bloc: ^8.1.3    # BLoC state management
-equatable: ^2.0.5       # Value equality for states/events
-google_fonts: ^6.1.0    # Nunito font family
+flutter_bloc: ^8.1.3 # BLoC state management
+equatable: ^2.0.5 # Value equality for states/events
+google_fonts: ^6.1.0 # Nunito font family
 ```
 
 ---
@@ -141,11 +146,12 @@ google_fonts: ^6.1.0    # Nunito font family
 Replace the placeholder illustrations in `OnboardingSlideCard`:
 
 1. Add images to `assets/images/`:
-    - `onboarding_1.png` (Find Donors — blood drop network illustration)
-    - `onboarding_2.png` (Be a Hero — donation illustration)
-    - `onboarding_3.png` (Save Lives Together — community photo)
+   - `onboarding_1.png` (Find Donors — blood drop network illustration)
+   - `onboarding_2.png` (Be a Hero — donation illustration)
+   - `onboarding_3.png` (Save Lives Together — community photo)
 
 2. Register in `pubspec.yaml`:
+
 ```yaml
 flutter:
   assets:
@@ -153,6 +159,7 @@ flutter:
 ```
 
 3. In `onboarding_slide_card.dart`, replace `_OnboardingIllustration` with:
+
 ```dart
 Image.asset(
   page.imagePath,
@@ -169,4 +176,3 @@ Image.asset(
 flutter pub get
 flutter run
 ```
-

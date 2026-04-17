@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/notifications/data/model.dart';
-import 'package:jibon_daian_app/features/notifications/widgets/notifications_enum.dart';
-
+import 'package:jibon_Bachan_app/features/notifications/data/model.dart';
+import 'package:jibon_Bachan_app/features/notifications/widgets/notifications_enum.dart';
 import 'notifications_event.dart';
 import 'notifications_state.dart';
 

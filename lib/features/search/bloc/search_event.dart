@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/search/bloc/search_state.dart';
+import 'package:jibon_Bachan_app/features/search/bloc/search_state.dart';
 
 abstract class SearchEvent extends Equatable {
   const SearchEvent();

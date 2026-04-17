@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/notifications/data/model.dart';
+import 'package:jibon_Bachan_app/features/notifications/data/model.dart';
 
 abstract class NotificationsState extends Equatable {
   const NotificationsState();

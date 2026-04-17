@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_routes.dart';
@@ -68,7 +69,7 @@ class AboutUsScreen extends StatelessWidget {
 
             const SizedBox(height: AppDimens.spaceMD),
 
-            Text('Jibon Daian', style: AppTextStyles.appName),
+            Text('Jibon Bachan', style: AppTextStyles.appName),
 
             const SizedBox(height: 6),
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jibon_daian_app/features/notifications/data/model.dart';
+import 'package:jibon_Bachan_app/features/notifications/data/model.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
-import '../bloc/notifications_bloc.dart';
 import 'notifications_enum.dart';
 
 class NotificationCard extends StatelessWidget {

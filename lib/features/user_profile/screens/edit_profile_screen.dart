@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_bloc.dart';
-import 'package:jibon_daian_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_event.dart';
-import 'package:jibon_daian_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_state.dart';
+import 'package:jibon_Bachan_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_bloc.dart';
+import 'package:jibon_Bachan_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_event.dart';
+import 'package:jibon_Bachan_app/features/user_profile/bloc/user_profile_edit_logic/edit_profile_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_text_styles.dart';

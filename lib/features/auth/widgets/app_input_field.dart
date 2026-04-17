@@ -14,6 +14,7 @@ class AppInputField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.validator,
     this.enabled = true,
+    this.readOnly,
   });
 
   final String label;
@@ -25,6 +26,7 @@ class AppInputField extends StatelessWidget {
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final bool enabled;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class AppInputField extends StatelessWidget {
           enabled: enabled,
           validator: validator,
           style: AppTextStyles.inputText,
+          readOnly: readOnly ?? false,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: AppTextStyles.inputHint,

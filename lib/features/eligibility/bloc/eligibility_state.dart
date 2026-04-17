@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/eligibility/data/model/eligibility_model.dart';
+import 'package:jibon_Bachan_app/features/eligibility/data/model/eligibility_model.dart';
 
 abstract class EligibilityState extends Equatable {
   const EligibilityState();

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/user_profile/data/model/user_profile_model.dart';
+import 'package:jibon_Bachan_app/features/user_profile/data/model/user_profile_model.dart';
 
 import 'edit_profile_event.dart';
 import 'edit_profile_state.dart';

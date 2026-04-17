@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:jibon_daian_app/features/user_profile/data/model/user_profile_model.dart';
+import 'package:jibon_Bachan_app/features/user_profile/data/model/user_profile_model.dart';
 
 abstract class UserProfileState extends Equatable {
   const UserProfileState();

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/home/screens/home_dashboard_screen.dart';
-import 'package:jibon_daian_app/features/search/screens/search_results_screen.dart';
-import 'package:jibon_daian_app/shared/navigation/app_bottom_nav_bar.dart';
+import 'package:jibon_Bachan_app/shared/navigation/app_bottom_nav_bar.dart';
 import 'core/constants/app_routes.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_router.dart';
@@ -12,7 +10,9 @@ import 'features/blood_request/screens/blood_request_screen.dart';
 import 'features/donation_history/bloc/donation_history_bloc.dart';
 import 'features/donation_history/screens/donation_history_screen.dart';
 import 'features/home/bloc/home_bloc.dart';
+import 'features/home/screens/home_dashboard_screen.dart';
 import 'features/search/bloc/search_bloc.dart';
+import 'features/search/screens/search_results_screen.dart';
 import 'features/user_profile/bloc/user_profile_bloc.dart';
 import 'features/user_profile/screens/user_profile_screen.dart';
 
@@ -42,7 +42,7 @@ class JibonDaianApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Jibon Daian',
+      title: 'Jibon Bachan',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialRoute: AppRoutes.splash,

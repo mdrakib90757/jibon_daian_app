@@ -23,8 +23,8 @@ class UserProfileModel {
 
   // ── Mock data ─────────────────────────────────────────────────
   static const UserProfileModel mock = UserProfileModel(
-    fullName: 'Jibon Daian',
-    email: 'jibon.daian@example.com',
+    fullName: 'Jibon Bachan',
+    email: 'jibon.Bachan@example.com',
     phoneNumber: '+880 1712-345678',
     location: 'Dhaka, Bangladesh',
     bloodGroup: 'A+',

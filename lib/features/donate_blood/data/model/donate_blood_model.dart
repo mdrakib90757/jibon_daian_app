@@ -65,7 +65,7 @@ class DonateDonorInfoModel {
   final String nextEligible;
 
   static const DonateDonorInfoModel mock = DonateDonorInfoModel(
-    userName: 'Jibon Daian',
+    userName: 'Jibon Bachan',
     bloodGroup: 'O+',
     totalDonations: 8,
     nextEligible: 'Tomorrow',

@@ -1,4 +1,5 @@
-part of 'auth_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:jibon_Bachan_app/features/auth/data/model/register_model.dart';
 
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
@@ -15,20 +16,12 @@ class AuthLoginSubmitted extends AuthEvent {
 }
 
 class AuthRegisterSubmitted extends AuthEvent {
-  const AuthRegisterSubmitted({
-    required this.fullName,
-    required this.email,
-    required this.phone,
-    required this.location,
-    required this.bloodGroup,
-  });
-  final String fullName;
-  final String email;
-  final String phone;
-  final String location;
-  final String bloodGroup;
+  const AuthRegisterSubmitted({required this.requestData});
+
+  final RegisterRequest requestData;
+
   @override
-  List<Object?> get props => [fullName, email, phone, location, bloodGroup];
+  List<Object?> get props => [requestData];
 }
 
 class AuthForgotPasswordSubmitted extends AuthEvent {

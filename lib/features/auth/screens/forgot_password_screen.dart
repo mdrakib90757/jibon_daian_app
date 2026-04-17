@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/core/constants/app_routes.dart';
+import 'package:jibon_Bachan_app/core/constants/app_routes.dart';
+import 'package:jibon_Bachan_app/features/auth/bloc/auth_event.dart';
+import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_strings.dart';

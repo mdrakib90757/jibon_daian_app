@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jibon_daian_app/features/hospitals/bloc/hospital_event.dart';
-import 'package:jibon_daian_app/features/hospitals/bloc/hospital_state.dart';
-import 'package:jibon_daian_app/features/hospitals/widgets/hospital_card.dart';
-import 'package:jibon_daian_app/features/hospitals/widgets/hospital_search_bar.dart';
-import 'package:jibon_daian_app/features/hospitals/widgets/hospital_urgent_banner.dart';
-import 'package:jibon_daian_app/features/hospitals/widgets/hospital_view_toggle.dart';
+import 'package:jibon_Bachan_app/features/hospitals/bloc/hospital_event.dart';
+import 'package:jibon_Bachan_app/features/hospitals/bloc/hospital_state.dart';
+import 'package:jibon_Bachan_app/features/hospitals/widgets/hospital_card.dart';
+import 'package:jibon_Bachan_app/features/hospitals/widgets/hospital_search_bar.dart';
+import 'package:jibon_Bachan_app/features/hospitals/widgets/hospital_urgent_banner.dart';
+import 'package:jibon_Bachan_app/features/hospitals/widgets/hospital_view_toggle.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_text_styles.dart';

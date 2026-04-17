@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'app_colors.dart';
 
-/// AppTextStyles - Centralized typography for Jibon Daian app
+/// AppTextStyles - Centralized typography for Jibon Bachan app
 class AppTextStyles {
   AppTextStyles._();
 
