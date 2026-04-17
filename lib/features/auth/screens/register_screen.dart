@@ -7,6 +7,7 @@ import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
 import 'package:jibon_Bachan_app/features/auth/data/model/register_model.dart';
 import 'package:jibon_Bachan_app/features/auth/widgets/map_full_screen.dart';
 import 'package:jibon_Bachan_app/shared/widgets/app_dropdown_field.dart';
+import 'package:jibon_Bachan_app/shared/widgets/app_snackbar.dart';
 import 'package:latlong2/latlong.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
@@ -79,15 +80,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthRegisterSuccess) {
+          AppSnackbar.show(context, message: "Registration Successful!");
           Navigator.pushReplacementNamed(context, AppRoutes.login);
         }
         if (state is AuthFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: AppColors.primary,
-            ),
-          );
+          AppSnackbar.show(context, message: state.message, isError: true);
         }
       },
       child: Scaffold(
@@ -415,10 +412,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const FullMapScreen(
-                              initialLocation: LatLng(
-                                23.8103,
-                                89.5103,
-                              ),
+                              initialLocation: LatLng(23.8103, 89.5103),
                             ),
                           ),
                         );

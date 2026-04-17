@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_event.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
+import 'package:jibon_Bachan_app/shared/widgets/app_snackbar.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_routes.dart';
@@ -47,15 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccess) {
+          AppSnackbar.show(context, message: "Welcome Back!");
           Navigator.pushReplacementNamed(context, AppRoutes.home);
         }
         if (state is AuthFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: AppColors.primary,
-            ),
-          );
+          AppSnackbar.show(context, message: state.message, isError: true);
         }
         if (state is AuthPasswordVisibilityChanged) {
           setState(() => _isPasswordVisible = state.isVisible);
@@ -198,16 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: AppColors.textWhite,
                           size: 18,
                         ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(
-                              AuthLoginSubmitted(
-                                email: _emailController.text.trim(),
-                                password: _passwordController.text,
-                              ),
-                            );
-                          }
-                        },
+                        onPressed: _handleLogin,
                       );
                     },
                   ),
