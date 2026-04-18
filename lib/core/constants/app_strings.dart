@@ -72,7 +72,7 @@ class AppStrings {
   static const String email = 'Email';
   static const String emailHint = 'Please enter your email address';
   static const String password = 'Password';
-  static const String passwordHint = '••••••••';
+  static const String passwordHint = '******';
   static const String forgotPassword = 'Forgot Password?';
   static const String login = 'Login';
   static const String orContinueWith = 'or';
@@ -101,7 +101,7 @@ class AppStrings {
   static const String forgotPasswordTitle = 'Forgot Password?';
   static const String forgotPasswordSubtitle =
       'Enter your email address to receive a password reset link.';
-  static const String sendLink = 'Send Link';
+  static const String sendLink = 'Change Password';
   static const String tryAnotherWay = 'Try another way';
   static const String havingTrouble = 'Having trouble?';
   static const String contactSupport = 'Contact Support';

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jibon_Bachan_app/core/constants/app_routes.dart';
+import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_event.dart';
 import 'package:jibon_Bachan_app/features/auth/bloc/auth_state.dart';
+import 'package:jibon_Bachan_app/shared/widgets/app_snackbar.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_dimens.dart';
 import '../../../core/constants/app_strings.dart';
@@ -20,11 +22,18 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final TokenRepository _tokenRepository = TokenRepository();
+  bool _obscureOld = true;
+  bool _obscureNew = true;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -32,13 +41,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthForgotPasswordSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Reset link sent! Check your email.'),
-              backgroundColor: AppColors.primary,
-            ),
-          );
+        if (state is AuthChangePasswordSuccess) {
+          AppSnackbar.show(context, message: state.message);
           Navigator.pop(context);
         }
       },
@@ -68,7 +72,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 children: [
                   const SizedBox(height: AppDimens.spaceXXL),
 
-                  // ── Icon ──────────────────────────────────────
                   Container(
                     width: 72,
                     height: 72,
@@ -87,7 +90,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                   const SizedBox(height: AppDimens.spaceLG),
 
-                  // ── Title ─────────────────────────────────────
                   Text(
                     AppStrings.forgotPasswordTitle,
                     style: AppTextStyles.authTitle.copyWith(fontSize: 22),
@@ -102,35 +104,80 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                   const SizedBox(height: AppDimens.spaceXL),
 
-                  // ── Email input ───────────────────────────────
                   AppInputField(
-                    label: AppStrings.emailAddress,
-                    hint: AppStrings.emailAddressHint,
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    suffixIcon: const Icon(
-                      Icons.email_outlined,
+                    label: "Current Password",
+                    hint: "********",
+                    controller: _oldPasswordController,
+                    obscureText: _obscureOld,
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
                       color: AppColors.inputIcon,
                       size: 18,
                     ),
-                    validator: (v) => v!.isEmpty ? 'Please enter email' : null,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureOld ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () =>
+                          setState(() => _obscureOld = !_obscureOld),
+                    ),
+                    validator: (v) => v!.isEmpty ? 'Enter old password' : null,
                   ),
 
                   const SizedBox(height: AppDimens.spaceXL),
 
-                  // ── Send Link Button ──────────────────────────
+                  AppInputField(
+                    label: "New Password",
+                    hint: "********",
+                    controller: _newPasswordController,
+                    obscureText: _obscureNew,
+                    validator: (v) => v!.length < 6 ? 'Too short' : null,
+                  ),
+                  const SizedBox(height: AppDimens.spaceXL),
+                  AppInputField(
+                    label: "Confirm New Password",
+                    hint: "********",
+                    controller: _confirmPasswordController,
+                    validator: (v) {
+                      if (v != _newPasswordController.text)
+                        return 'Passwords do not match';
+                      return null;
+                    },
+                  ),
+
+                  const SizedBox(height: AppDimens.spaceXL),
+
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
                       return AppPrimaryButton(
                         label: AppStrings.sendLink,
                         isLoading: state is AuthLoading,
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(
-                              AuthForgotPasswordSubmitted(
-                                email: _emailController.text.trim(),
-                              ),
+                            final String? currentUserId = await _tokenRepository
+                                .getUserId();
+
+                            print(
+                              "--- Attempting to change password for ID: $currentUserId ---",
                             );
+
+                            if (currentUserId != null &&
+                                currentUserId.isNotEmpty) {
+                              context.read<AuthBloc>().add(
+                                AuthChangePasswordSubmitted(
+                                  userId: currentUserId,
+                                  oldPassword: _oldPasswordController.text,
+                                  newPassword: _newPasswordController.text,
+                                ),
+                              );
+                            } else {
+                              AppSnackbar.show(
+                                context,
+                                message:
+                                    "User ID not found. Please login again.",
+                                isError: true,
+                              );
+                            }
                           }
                         },
                       );
@@ -139,7 +186,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                   const SizedBox(height: AppDimens.spaceLG),
 
-                  // ── Try another way ───────────────────────────
                   Center(
                     child: TextButton(
                       onPressed: () {},
@@ -150,7 +196,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
 
-                  // ── Contact Support ───────────────────────────
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

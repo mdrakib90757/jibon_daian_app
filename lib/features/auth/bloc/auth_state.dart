@@ -44,3 +44,9 @@ class AuthPasswordVisibilityChanged extends AuthState {
   @override
   List<Object?> get props => [isVisible];
 }
+
+
+class AuthChangePasswordSuccess extends AuthState {
+  final String message;
+  const AuthChangePasswordSuccess({required this.message});
+}

@@ -3,6 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TokenRepository {
   static const String _tokenKey = 'access_token';
   static const String _isFirstTimeKey = 'is_first_time';
+  static const String _userIdKey = 'user_id';
+
+  Future<void> saveUserId(String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userIdKey, userId);
+  }
+
+  Future<String?> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userIdKey);
+  }
 
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
@@ -17,6 +28,7 @@ class TokenRepository {
   Future<void> clearToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
+    await prefs.remove(_userIdKey);
   }
 
   Future<void> setOnboardingComplete() async {

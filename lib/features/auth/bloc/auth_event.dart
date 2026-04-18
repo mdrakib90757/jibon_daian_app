@@ -24,11 +24,19 @@ class AuthRegisterSubmitted extends AuthEvent {
   List<Object?> get props => [requestData];
 }
 
-class AuthForgotPasswordSubmitted extends AuthEvent {
-  const AuthForgotPasswordSubmitted({required this.email});
-  final String email;
+class AuthChangePasswordSubmitted extends AuthEvent {
+  final String userId;
+  final String oldPassword;
+  final String newPassword;
+
+  const AuthChangePasswordSubmitted({
+    required this.userId,
+    required this.oldPassword,
+    required this.newPassword,
+  });
+
   @override
-  List<Object?> get props => [email];
+  List<Object?> get props => [userId, oldPassword, newPassword];
 }
 
 class AuthPasswordVisibilityToggled extends AuthEvent {

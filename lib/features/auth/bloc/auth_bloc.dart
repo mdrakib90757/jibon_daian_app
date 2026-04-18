@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import 'package:jibon_Bachan_app/features/auth/data/repository/auth_api.dart';
@@ -13,7 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthInitial()) {
     on<AuthLoginSubmitted>(_onLogin);
     on<AuthRegisterSubmitted>(_onRegister);
-    on<AuthForgotPasswordSubmitted>(_onForgotPassword);
+    on<AuthChangePasswordSubmitted>(_onChangePassword);
     on<AuthPasswordVisibilityToggled>(_onTogglePassword);
     on<AuthLogoutRequested>(_onLogout);
     on<AuthResetStatus>(_onReset);
@@ -28,9 +29,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final response = await _repository.login(event.email, event.password);
       if (response['success'] == true) {
         final token = response['token'];
+        final String userId = response['data']['_id'];
         await TokenRepository().saveToken(token);
         final savedToken = await TokenRepository().getToken();
+        final String userType = response['data']['type'];
+        print("✅ Login Successful!");
+        print("---------- USER ID: $userId ----------");
         print("---------- SAVED TOKEN: $savedToken ----------");
+        debugPrint("👤 USER TYPE: ${userType.toUpperCase()}");
         emit(const AuthLoginSuccess());
       } else {
         emit(AuthFailure(message: response['message'] ?? "Login Failed"));
@@ -59,14 +65,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _onForgotPassword(
-    AuthForgotPasswordSubmitted event,
+  Future<void> _onChangePassword(
+    AuthChangePasswordSubmitted event,
     Emitter<AuthState> emit,
   ) async {
     emit(const AuthLoading());
-    await Future.delayed(const Duration(milliseconds: 1500));
-    // TODO: Replace with real API call
-    emit(const AuthForgotPasswordSuccess());
+    try {
+      final response = await _repository.changePassword(
+        userId: event.userId,
+        oldPassword: event.oldPassword,
+        newPassword: event.newPassword,
+      );
+
+      if (response['success'] == true) {
+        emit(
+          AuthChangePasswordSuccess(
+            message: response['message'] ?? "Password changed!",
+          ),
+        );
+      } else {
+        emit(
+          AuthFailure(
+            message: response['message'] ?? "Failed to change password",
+          ),
+        );
+      }
+    } catch (e) {
+      emit(AuthFailure(message: e.toString()));
+    }
   }
 
   void _onTogglePassword(

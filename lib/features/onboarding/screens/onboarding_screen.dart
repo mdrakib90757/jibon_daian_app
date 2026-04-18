@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jibon_Bachan_app/core/data/repository/token_repository.dart';
 import '../../../core/constants/app_colors.dart';
@@ -44,6 +45,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).unfocus();
+    });
   }
 
   @override
@@ -89,6 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
         return Scaffold(
           backgroundColor: AppColors.backgroundWhite,
+          resizeToAvoidBottomInset: false,
           appBar: OnboardingNavBar(
             titleStyle: titleStyle,
             showBackButton: currentPage > 0,
