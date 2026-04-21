@@ -170,3 +170,31 @@ flutter pub get
 flutter run
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 50 PM (1)" src="https://github.com/user-attachments/assets/b008069f-9f5a-428a-9cff-f90e796f204e" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 50 PM (2)" src="https://github.com/user-attachments/assets/d69ae9bc-9d41-4c23-a067-a8493699dc39" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 51 PM (1)" src="https://github.com/user-attachments/assets/b89521b5-c7c3-453a-8bcc-3ee7693e92bc" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 50 PM" src="https://github.com/user-attachments/assets/934af6fa-62c9-4bdb-b244-b167e104e2e0" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 51 PM (2)" src="https://github.com/user-attachments/assets/4aababf6-dd14-448a-a418-1a509558378a" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 48 PM" src="https://github.com/user-attachments/assets/8bc23847-e0ab-462b-9d15-53886dbb206e" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 49 PM (1)" src="https://github.com/user-attachments/assets/9f4acffd-aec4-4087-994f-fb4b2c5a50f4" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 47 PM (1)" src="https://github.com/user-attachments/assets/d3ed7c2a-e41a-41b1-b26d-ec753b1bdd31" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 48 PM (2)" src="https://github.com/user-attachments/assets/3d6f3074-7cf9-42be-a551-84e665785cf7" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 48 PM (1)" src="https://github.com/user-attachments/assets/585a44e1-df26-4d31-946c-860375d09473" />
+<img width="738" height="1600" alt="WhatsApp Image 2026-04-21 at 10 06 47 PM" src="https://github.com/user-attachments/assets/8de55110-5386-4af4-967d-6aa5e04df21a" />
+<img width="1024" height="1024" alt="screen" src="https://github.com/user-attachments/assets/1f41eb14-94c1-45a2-9ac2-d89e4e19c4a6" />
+
